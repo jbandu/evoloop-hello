@@ -8,18 +8,25 @@ with open('spec.json', 'r', encoding='utf-8') as f:
 with open('index.html', 'r') as f:
     content = f.read()
 
-# Task: Add reset button if in spec
-if any("reset button" in task.lower() for task in spec['tasks']):
-    if '<button onclick="resetCounter()">' not in content:
-        content = content.replace('</div>', '<button onclick="resetCounter()">Reset</button></div>')
-        content += '\n        <script>function resetCounter() { count = 0; updateDisplay(); }</script>'
+# Task: Add save button if in spec
+if any("save button" in task.lower() for task in spec['tasks']):
+    if '<button onclick="saveCounter()">' not in content:
+        # Insert save button inside .controls div before the closing </div>
+        controls_end = content.find('</div>', content.find('<div class="controls">'))
+        if controls_end != -1:
+            button_html = '\n            <button onclick="saveCounter()">Save Counter</button>'
+            content = content[:controls_end] + button_html + content[controls_end:]
+        # Add saveCounter function in the existing script block
+        script_start = content.find('<script>') + len('<script>')
+        script_end = content.find('</script>', script_start)
+        if script_start != -1 and script_end != -1:
+            save_function = '\n        function saveCounter() { const blob = new Blob([`Counter Value: ${count}`], { type: "text/plain" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "counter_value.txt"; a.click(); URL.revokeObjectURL(url); }'
+            content = content[:script_end] + save_function + content[script_end:]
 
-# Task: Ensure responsiveness (already added, but verify)
-if not '@media' in content and 'responsive' in spec['scope'].lower():
-    content = content.replace('</style>', '@media (max-width: 600px) { .controls { flex-direction: column; gap: 5px; } button { width: 100%; margin: 5px 0; } }</style>')
+# Stage all modified files and commit
+os.system('git add index.html spec.json triage.json')
+os.system('git commit -m "Add save button per spec tasks" || echo "No changes to commit"')
+os.system('git push')
 
 with open('index.html', 'w') as f:
     f.write(content)
-
-# Commit and push
-os.system('git add index.html && git commit -m "Update per spec tasks" && git push')
