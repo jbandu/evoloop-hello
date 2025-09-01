@@ -47,7 +47,7 @@
         <button onclick="decrementCounter()">Decrement</button>
         <span id="counter">0</span>
         <button onclick="incrementCounter()">Increment</button>
-    </div>
+    <button onclick="resetCounter()">Reset</button></div>
     <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
     <script>
@@ -82,3 +82,5 @@
     </script>
 </body>
 </html>
+
+        <script>function resetCounter() { count = 0; updateDisplay(); }</script>
