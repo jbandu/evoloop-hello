@@ -78,8 +78,7 @@
             document.body.classList.toggle('dark-mode');
             updateDisplay();
       
-function suggestRoute() { const routes = ["SFO->LAX", "LAX->JFK"]; alert("Suggested Route: " + routes[Math.floor(Math.random() * routes.length)]); } }
-        //function suggestRoute() { alert("Suggested Route: SFO -> LAX"); }  
+    function suggestRoute() { const routes = ["SFO->LAX", "LAX->JFK"]; document.getElementById("counter").textContent = "Route: " + routes[Math.floor(Math.random() * routes.length)]; })
 
         // Initial display update
         updateDisplay();
