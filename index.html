@@ -19,6 +19,9 @@
         }
         .controls {
             margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
         button {
             padding: 10px 20px;
@@ -26,6 +29,16 @@
             margin: 0 5px;
         }
         .dark-mode { --bg-color: #1E293B; --text-color: #F1F5F9; }
+        @media (max-width: 600px) {
+            .controls {
+                flex-direction: column;
+                gap: 5px;
+            }
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
     </style>
 </head>
 <body>
