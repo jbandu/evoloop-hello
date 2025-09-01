@@ -2,30 +2,29 @@
   "problem": "Crew members need assistance in planning routes, and there is currently no feature to suggest sample routes for them.",
   "scope": "Develop a button in the crew interface that, when clicked, suggests a sample route based on predefined criteria or algorithms.",
   "acceptance_criteria": [
-    "A 'Suggest Route' button is visible and accessible in the crew interface.",
-    "Clicking the button displays a sample route suggestion to the user.",
-    "The suggested route is based on logical criteria (e.g., shortest path, common routes, or predefined templates).",
-    "The feature handles errors gracefully (e.g., no route available).",
+    "A 'Suggest Route' button is visible and clickable in the crew interface.",
+    "Clicking the button displays a sample route with key details (e.g., waypoints, distance, estimated time).",
+    "The suggested route is based on logical criteria (e.g., shortest path, historical data, or predefined templates).",
+    "The feature handles errors gracefully (e.g., displays a message if no route can be suggested).",
     "The button is responsive and works across different devices and screen sizes."
   ],
   "tasks": [
-    "Design the UI for the 'Suggest Route' button in the crew interface.",
-    "Implement the frontend logic to handle button click events.",
-    "Develop a backend endpoint to generate or retrieve a sample route.",
-    "Define criteria or algorithm for suggesting a sample route (e.g., shortest path or predefined templates).",
-    "Integrate frontend with backend to display the suggested route.",
+    "Design the UI for the 'Suggest Route' button and route display modal.",
+    "Implement the frontend logic to handle button click and display the suggested route.",
+    "Develop a backend API endpoint to generate or retrieve a sample route based on criteria.",
+    "Integrate the frontend with the backend API for route suggestion.",
+    "Define and implement the route suggestion algorithm or use predefined templates.",
     "Add error handling for cases where no route can be suggested.",
-    "Ensure the button and route display are responsive for mobile and desktop views.",
-    "Write unit tests for the route suggestion logic."
+    "Ensure the feature is responsive and compatible with mobile and desktop views.",
+    "Write unit tests for the route suggestion logic and API integration."
   ],
   "test_plan": [
-    "Test the visibility and accessibility of the 'Suggest Route' button in the crew interface.",
-    "Verify that clicking the button triggers the route suggestion process.",
-    "Test the route suggestion logic with different scenarios (e.g., normal case, no route available).",
-    "Validate that the suggested route adheres to the defined criteria or algorithm.",
-    "Check error handling by simulating failure cases (e.g., API downtime).",
-    "Perform responsiveness tests on various devices and screen sizes.",
-    "Run unit tests for backend route suggestion logic and frontend interactions.",
-    "Conduct user acceptance testing with a small group of crew members to gather feedback."
+    "Test the visibility and functionality of the 'Suggest Route' button in the crew interface.",
+    "Verify that clicking the button triggers the route suggestion and displays the route details correctly.",
+    "Test the route suggestion logic with various scenarios (e.g., different locations, no available data).",
+    "Validate error handling by simulating API failures or cases with no route suggestions.",
+    "Perform responsiveness tests on multiple devices and screen sizes.",
+    "Run unit tests for backend logic and API endpoints to ensure reliability.",
+    "Conduct user acceptance testing with a small group of crew members to gather feedback on usability."
   ]
 }
