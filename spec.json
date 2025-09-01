@@ -1,30 +1,32 @@
 {
-  "problem": "Crew members need assistance in planning routes, and there is currently no feature to suggest sample routes for them.",
-  "scope": "Develop a button in the crew interface that, when clicked, suggests a sample route based on predefined criteria or algorithms.",
+  "problem": "Users need a way to view a table of US states and their capitals within the application for quick reference.",
+  "scope": "Implement a button that, when clicked, displays a table listing all US states and their corresponding capitals. The table should be clear, readable, and integrated into the existing UI.",
   "acceptance_criteria": [
-    "A 'Suggest Route' button is visible and clickable in the crew interface.",
-    "Clicking the button displays a sample route with key details (e.g., waypoints, distance, estimated time).",
-    "The suggested route is based on logical criteria (e.g., shortest path, historical data, or predefined templates).",
-    "The feature handles errors gracefully (e.g., displays a message if no route can be suggested).",
-    "The button is responsive and works across different devices and screen sizes."
+    "A button labeled 'Show US States & Capitals' is visible in the UI.",
+    "Clicking the button displays a table with two columns: 'State' and 'Capital'.",
+    "The table lists all 50 US states and their correct capitals.",
+    "The table is styled consistently with the application's design (e.g., font, colors).",
+    "The table is dismissible or toggleable (e.g., via a close button or toggling the same button).",
+    "The feature is responsive and works across different screen sizes."
   ],
   "tasks": [
-    "Design the UI for the 'Suggest Route' button and route display modal.",
-    "Implement the frontend logic to handle button click and display the suggested route.",
-    "Develop a backend API endpoint to generate or retrieve a sample route based on criteria.",
-    "Integrate the frontend with the backend API for route suggestion.",
-    "Define and implement the route suggestion algorithm or use predefined templates.",
-    "Add error handling for cases where no route can be suggested.",
-    "Ensure the feature is responsive and compatible with mobile and desktop views.",
-    "Write unit tests for the route suggestion logic and API integration."
+    "Design a UI layout for the button and table placement within the existing interface.",
+    "Create a static dataset of US states and capitals (e.g., as a JSON object).",
+    "Implement the button with an event listener to trigger the table display.",
+    "Develop the table component to render the state-capital data dynamically.",
+    "Add functionality to toggle or close the table.",
+    "Style the button and table to match the application's theme.",
+    "Ensure responsiveness for mobile, tablet, and desktop views.",
+    "Write unit tests for the button and table rendering logic."
   ],
   "test_plan": [
-    "Test the visibility and functionality of the 'Suggest Route' button in the crew interface.",
-    "Verify that clicking the button triggers the route suggestion and displays the route details correctly.",
-    "Test the route suggestion logic with various scenarios (e.g., different locations, no available data).",
-    "Validate error handling by simulating API failures or cases with no route suggestions.",
-    "Perform responsiveness tests on multiple devices and screen sizes.",
-    "Run unit tests for backend logic and API endpoints to ensure reliability.",
-    "Conduct user acceptance testing with a small group of crew members to gather feedback on usability."
+    "Verify the button appears in the UI with the correct label.",
+    "Test that clicking the button displays the table with all 50 states and capitals.",
+    "Confirm the data in the table is accurate by cross-referencing with a reliable source.",
+    "Check that the table can be closed or toggled off.",
+    "Validate the UI styling matches the application's design system.",
+    "Test responsiveness by viewing the feature on different screen sizes (mobile, tablet, desktop).",
+    "Run unit tests to ensure button click events and table rendering work as expected.",
+    "Perform accessibility testing to ensure the button and table are navigable via keyboard and readable by screen readers."
   ]
 }
