@@ -1,0 +1,31 @@
+{
+  "problem": "Develop a simple web application that displays a 'Hello World' message with a counter that increments on a button click and includes a dark mode toggle feature.",
+  "scope": "The application will be a single-page web app built using HTML, CSS, and JavaScript (or a framework like React if specified). It will feature a counter starting at 0, incrementing with each button click, and a toggle for switching between light and dark themes.",
+  "acceptance_criteria": [
+    "The web app displays 'Hello World' text prominently.",
+    "A counter starts at 0 and increments by 1 each time a button is clicked.",
+    "A toggle button switches the app between light and dark mode.",
+    "Dark mode changes the background to a dark color and text to a light color, while light mode does the opposite.",
+    "The app is responsive and works on both desktop and mobile devices.",
+    "The counter value persists after theme toggle."
+  ],
+  "tasks": [
+    "Set up the project structure with necessary files (HTML, CSS, JS or React setup).",
+    "Implement the 'Hello World' text display.",
+    "Create a counter component with an initial value of 0 and a button to increment it.",
+    "Develop a dark mode toggle button with logic to switch between themes.",
+    "Style the app for light and dark modes using CSS variables or classes.",
+    "Ensure responsiveness using CSS media queries or a framework's responsive utilities.",
+    "Test the counter persistence during theme changes.",
+    "Deploy the app to a local server for testing."
+  ],
+  "test_plan": [
+    "Verify that 'Hello World' text is visible on page load.",
+    "Test that the counter starts at 0 and increments correctly on button click.",
+    "Confirm that the dark mode toggle switches themes and updates UI accordingly.",
+    "Check that text and background colors change appropriately in both modes.",
+    "Test responsiveness by resizing the browser window and checking on mobile view.",
+    "Ensure the counter value remains unchanged after toggling themes.",
+    "Validate that there are no console errors during interactions."
+  ]
+}
