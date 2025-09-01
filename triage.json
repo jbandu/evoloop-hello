@@ -1,5 +1,5 @@
 {
-  "summary": "Feature request to add a save button for exporting counter value",
+  "summary": "Feature request to add a button for exporting counter data as CSV",
   "priority": 64,
   "status": "triaged"
 }
