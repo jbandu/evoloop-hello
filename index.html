@@ -47,7 +47,7 @@
         <button onclick="decrementCounter()">Decrement</button>
         <span id="counter">0</span>
         <button onclick="incrementCounter()">Increment</button>
-    <button onclick="resetCounter()">Reset</button></div>
+    <button onclick="resetCounter()">Reset</button><button onclick="saveCounter()">Save Counter</button></div>
     <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
     <script>
@@ -84,3 +84,4 @@
 </html>
 
         <script>function resetCounter() { count = 0; updateDisplay(); }</script>
+        <script>function saveCounter() { const blob = new Blob([`Counter Value: ${count}`], { type: "text/plain" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "counter_value.txt"; a.click(); URL.revokeObjectURL(url); }</script>

@@ -1,27 +1,26 @@
 {
   "problem": "Users need a way to export the current counter value for external use or record-keeping.",
-  "scope": "Add a save button to the counter interface that allows users to export the current counter value as a downloadable file or text.",
+  "scope": "Implement a save button in the counter UI that allows users to export the current counter value as a downloadable file or copied text.",
   "acceptance_criteria": [
-    "A save button is visible and clickable on the counter UI.",
+    "A save button is visible and clickable in the counter UI.",
     "Clicking the save button exports the current counter value.",
     "The exported value is accurate and matches the displayed counter.",
-    "The export format is user-friendly (e.g., plain text or CSV).",
+    "User receives feedback (e.g., confirmation message or download prompt) after export.",
     "The feature works across supported browsers without errors."
   ],
   "tasks": [
-    "Design UI placement for the save button near the counter display.",
-    "Implement save button functionality in the frontend code.",
-    "Create logic to extract the current counter value.",
-    "Develop export mechanism (e.g., generate a downloadable text file).",
-    "Test button visibility and functionality on different screen sizes.",
-    "Ensure compatibility with major browsers (Chrome, Firefox, Safari)."
+    "Design UI placement and style for the save button.",
+    "Implement save button functionality to capture current counter value.",
+    "Add logic to export the value as a downloadable text file or clipboard copy.",
+    "Implement user feedback mechanism (e.g., toast notification or download prompt).",
+    "Test the feature for cross-browser compatibility."
   ],
   "test_plan": [
-    "Verify save button appears in the correct UI location.",
-    "Test clicking the save button triggers export of the counter value.",
-    "Confirm exported value matches the displayed counter value.",
-    "Check export file format is readable and correct (e.g., text or CSV).",
-    "Test functionality on multiple browsers and devices.",
-    "Validate no errors or console warnings occur during export."
+    "Verify save button is visible and clickable in the UI.",
+    "Test clicking the save button and confirm the correct counter value is exported.",
+    "Validate exported value matches the displayed counter value.",
+    "Check user feedback (notification or download) appears after export.",
+    "Test functionality on multiple browsers (Chrome, Firefox, Safari).",
+    "Ensure no console errors occur during the export process."
   ]
 }
