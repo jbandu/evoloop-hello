@@ -9,33 +9,63 @@
             --bg-color: #ffffff;
             --text-color: #000000;
         }
-        body { 
-            font-family: Arial, sans-serif; 
-            text-align: center; 
-            margin-top: 50px; 
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
             background-color: var(--bg-color);
             color: var(--text-color);
             transition: all 0.3s;
         }
-        button { padding: 10px 20px; font-size: 16px; }
+        .controls {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 0 5px;
+        }
         .dark-mode { --bg-color: #1E293B; --text-color: #F1F5F9; }
     </style>
 </head>
 <body>
     <h1>Hello, World!</h1>
-    <p>Counter: <span id="counter">0</span></p>
-    <button onclick="incrementCounter()">Increment</button>
+    <div class="controls">
+        <button onclick="decrementCounter()">Decrement</button>
+        <span id="counter">0</span>
+        <button onclick="incrementCounter()">Increment</button>
+    </div>
     <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
     <script>
-        let count = 0;
+        let count = localStorage.getItem('counter') ? parseInt(localStorage.getItem('counter')) : 0;
+        let isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) document.body.classList.add('dark-mode');
+
+        function updateDisplay() {
+            document.getElementById('counter').textContent = count;
+            localStorage.setItem('counter', count);
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
         function incrementCounter() {
             count++;
-            document.getElementById('counter').textContent = count;
+            updateDisplay();
         }
+
+        function decrementCounter() {
+            if (count > 0) count--;
+            updateDisplay();
+        }
+
         function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
             document.body.classList.toggle('dark-mode');
+            updateDisplay();
         }
+
+        // Initial display update
+        updateDisplay();
     </script>
 </body>
 </html>
