@@ -1,29 +1,30 @@
 {
-  "problem": "Users need a way to export counter data as CSV for external analysis and reporting.",
-  "scope": "Add a button to the UI that triggers the export of counter data in CSV format, ensuring data integrity and user-friendly file download.",
+  "problem": "Crew members need assistance in planning routes, and there is currently no feature to suggest a sample route for them to follow.",
+  "scope": "Implement a button in the crew interface that, when clicked, suggests a predefined sample route for the crew to consider.",
   "acceptance_criteria": [
-    "A button labeled 'Export as CSV' is visible in the counter data UI.",
-    "Clicking the button downloads a CSV file containing all counter data.",
-    "The CSV file format is valid and includes headers for each data column.",
-    "The exported data matches the displayed counter data exactly.",
-    "The download process provides feedback (e.g., loading state or success message).",
-    "The feature works across all supported browsers (Chrome, Firefox, Edge)."
+    "A 'Suggest Route' button is visible in the crew interface.",
+    "Clicking the 'Suggest Route' button displays a predefined sample route.",
+    "The suggested route is visually distinct (e.g., highlighted or marked) on the map or route planning interface.",
+    "The crew can accept or ignore the suggested route without affecting other functionalities.",
+    "The feature is responsive and works across different screen sizes and devices."
   ],
   "tasks": [
-    "Design UI placement for the 'Export as CSV' button.",
-    "Implement button component with appropriate styling and accessibility attributes.",
-    "Develop backend logic to fetch counter data and format it as CSV.",
-    "Create a download mechanism to trigger CSV file download on button click.",
-    "Add loading state or success feedback during/after export process.",
-    "Write unit tests for CSV formatting and data integrity.",
-    "Perform cross-browser testing for button functionality and file download."
+    "Design the UI for the 'Suggest Route' button and place it in the crew interface.",
+    "Define a sample route dataset or algorithm to generate a route for suggestion.",
+    "Implement the backend logic to fetch or generate the sample route when the button is clicked.",
+    "Integrate the frontend to display the suggested route on the map or route planning interface.",
+    "Add functionality to allow the crew to accept or ignore the suggested route.",
+    "Ensure the feature is responsive and compatible with different devices and screen sizes.",
+    "Write unit tests for the backend route suggestion logic.",
+    "Write integration tests for the button click and route display functionality."
   ],
   "test_plan": [
-    "Unit Test: Verify CSV formatting logic handles various data types and edge cases (empty data, special characters).",
-    "Unit Test: Confirm exported data matches source counter data.",
-    "Integration Test: Ensure button click triggers download with correct file name and content.",
-    "UI Test: Validate button visibility, styling, and accessibility (ARIA labels, keyboard navigation).",
-    "Manual Test: Test download functionality across Chrome, Firefox, and Edge.",
-    "User Test: Confirm feedback mechanism (loading/success) is clear to users."
+    "Test 1: Verify that the 'Suggest Route' button is visible and clickable in the crew interface across different devices.",
+    "Test 2: Confirm that clicking the button triggers the display of a sample route.",
+    "Test 3: Validate that the suggested route is visually distinct on the map or interface.",
+    "Test 4: Ensure the crew can accept or ignore the route without impacting other features.",
+    "Test 5: Test responsiveness by checking the feature on various screen sizes and devices.",
+    "Test 6: Run unit tests to verify backend logic for route suggestion.",
+    "Test 7: Run integration tests to confirm the button and route display work seamlessly."
   ]
 }
