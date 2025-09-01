@@ -22,11 +22,11 @@ if any("suggest route" in task.lower() for task in spec['tasks']):
             content = content[:controls_end] + button_html + content[controls_end:]
 
         # Add suggestRoute function
-        suggest_function = '\n        function suggestRoute() { alert("Suggested Route: SFO -> LAX"); }'
+        suggest_function = '\n        function suggestRoute() { const routes = ["SFO->LAX", "LAX->JFK"]; alert("Suggested Route: " + routes[Math.floor(Math.random() * routes.length)]); }'
         if script_content and suggest_function not in script_content:
             content = content[:script_end] + suggest_function + content[script_end:]
 
-# Task: Add save button if in spec (fix placement)
+# Task: Add save button if in spec
 if any("save button" in task.lower() for task in spec['tasks']):
     if '<button onclick="saveCounter()">' not in content:
         controls_end = content.find('</div>', content.find('<div class="controls">'))
@@ -39,7 +39,7 @@ if any("save button" in task.lower() for task in spec['tasks']):
         if script_content and save_function not in script_content:
             content = content[:script_end] + save_function + content[script_end:]
 
-# Task: Add reset button if in spec (fix placement)
+# Task: Add reset button if in spec
 if any("reset button" in task.lower() for task in spec['tasks']):
     if '<button onclick="resetCounter()">' not in content:
         controls_end = content.find('</div>', content.find('<div class="controls">'))
@@ -52,13 +52,63 @@ if any("reset button" in task.lower() for task in spec['tasks']):
         if script_content and reset_function not in script_content:
             content = content[:script_end] + reset_function + content[script_end:]
 
-# Clean up invalid script tags at the end
+# Clean up invalid script tags at the end and ensure valid HTML
 content = content.replace('</body>\n        <script>function resetCounter() { count = 0; updateDisplay(); }</script>\n        <script>function saveCounter() { const blob = new Blob([`Counter Value: ${count}`], { type: "text/plain" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "counter_value.txt"; a.click(); URL.revokeObjectURL(url); }</script>', '</body>')
+content = content.rstrip() + '</body></html>'  # Ensure proper closing
 
 # Stage all modified files and commit
 os.system('git add index.html spec.json triage.json')
-os.system('git commit -m "Add suggest route button per spec tasks" || echo "No changes to commit"')
+os.system('git commit -m "Add suggest route and fix HTML structure" || echo "No changes to commit"')
 os.system('git push')
+
+# Task: Add show table button if in spec
+if any("display states" in task.lower() or "show table" in task.lower() for task in spec['tasks']):
+    if '<button onclick="showTable()">' not in content:
+        controls_end = content.find('</div>', content.find('<div class="controls">'))
+        if controls_end != -1:
+            button_html = '\n            <button onclick="showTable()">Show Table</button>'
+            content = content[:controls_end] + button_html + content[controls_end:]
+
+# Task: Add show table button if in spec
+if any("display states" in task.lower() or "show table" in task.lower() for task in spec['tasks']):
+    if '<button onclick="showTable()">' not in content:
+        controls_end = content.find('</div>', content.find('<div class="controls">'))
+        if controls_end != -1:
+            button_html = '\n            <button onclick="showTable()">Show Table</button>'
+            content = content[:controls_end] + button_html + content[controls_end:]
+
+        # Add showTable function with sample data
+        table_function = '''
+            function showTable() {
+                const states = {
+                    "Alabama": "Montgomery", "Alaska": "Juneau", "Arizona": "Phoenix",
+                    "Arkansas": "Little Rock", "California": "Sacramento", "Colorado": "Denver",
+                    "Connecticut": "Hartford", "Delaware": "Dover", "Florida": "Tallahassee",
+                    "Georgia": "Atlanta", "Hawaii": "Honolulu", "Idaho": "Boise",
+                    "Illinois": "Springfield", "Indiana": "Indianapolis", "Iowa": "Des Moines",
+                    "Kansas": "Topeka", "Kentucky": "Frankfort", "Louisiana": "Baton Rouge",
+                    "Maine": "Augusta", "Maryland": "Annapolis", "Massachusetts": "Boston",
+                    "Michigan": "Lansing", "Minnesota": "St. Paul", "Mississippi": "Jackson",
+                    "Missouri": "Jefferson City", "Montana": "Helena", "Nebraska": "Lincoln",
+                    "Nevada": "Carson City", "New Hampshire": "Concord", "New Jersey": "Trenton",
+                    "New Mexico": "Santa Fe", "New York": "Albany", "North Carolina": "Raleigh",
+                    "North Dakota": "Bismarck", "Ohio": "Columbus", "Oklahoma": "Oklahoma City",
+                    "Oregon": "Salem", "Pennsylvania": "Harrisburg", "Rhode Island": "Providence",
+                    "South Carolina": "Columbia", "South Dakota": "Pierre", "Tennessee": "Nashville",
+                    "Texas": "Austin", "Utah": "Salt Lake City", "Vermont": "Montpelier",
+                    "Virginia": "Richmond", "Washington": "Olympia", "West Virginia": "Charleston",
+                    "Wisconsin": "Madison", "Wyoming": "Cheyenne"
+                };
+                let table = "<table border='1'><tr><th>State</th><th>Capital</th></tr>";
+                for (let state in states) {
+                    table += `<tr><td>${state}</td><td>${states[state]}</td></tr>`;
+                }
+                table += "</table>";
+                document.body.innerHTML += table;
+            }
+        '''
+        if script_content and table_function not in script_content:
+            content = content[:script_end] + table_function + content[script_end:]
 
 with open('index.html', 'w') as f:
     f.write(content)
