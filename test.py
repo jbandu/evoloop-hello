@@ -30,6 +30,13 @@ try:
     driver.refresh()
     wait.until(lambda d: "dark-mode" in d.find_element(By.TAG_NAME, "body").get_attribute("class"))
 
+    # Save counter test
+    driver.find_element(By.XPATH, "//button[contains(., 'Save')]").click()
+    wait.until(lambda d: len(os.listdir()) > 0 and any("counter_value.txt" in f for f in os.listdir()))
+    with open("counter_value.txt", "r") as f:
+        assert f.read().strip() == f"Counter Value: {int(driver.find_element(By.ID, "counter").text)}", "Save should export correct counter value"
+    os.remove("counter_value.txt")  # Clean up
+
     print("Tests passed!")
 finally:
     driver.quit()
