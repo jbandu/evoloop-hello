@@ -1,11 +1,20 @@
 import time
+import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 try:
-    driver = webdriver.Chrome()
+    # Configure Chrome to download to the current directory
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option("prefs", {
+        "download.default_directory": os.getcwd(),
+        "download.prompt_for_download": False,
+        "download.directory_upgrade": True,
+        "plugins.always_open_pdf_externally": True
+    })
+    driver = webdriver.Chrome(options=options)
     driver.get("https://jbandu.github.io/evoloop-hello/")
 
     wait = WebDriverWait(driver, 10)
@@ -31,10 +40,14 @@ try:
     wait.until(lambda d: "dark-mode" in d.find_element(By.TAG_NAME, "body").get_attribute("class"))
 
     # Save counter test
-    driver.find_element(By.XPATH, "//button[contains(., 'Save')]").click()
-    wait.until(lambda d: len(os.listdir()) > 0 and any("counter_value.txt" in f for f in os.listdir()))
+    wait.until(EC.presence_of_element_located((By.XPATH, "//button[contains(., 'Save Counter')]")))
+    driver.find_element(By.XPATH, "//button[contains(., 'Save Counter')]").click()
+    # Wait for download with a custom timeout loop
+    wait.until(lambda d: any("counter_value.txt" in f for f in os.listdir()), message="Download did not complete")
+    expected_value = int(driver.find_element(By.ID, "counter").text)
     with open("counter_value.txt", "r") as f:
-        assert f.read().strip() == f"Counter Value: {int(driver.find_element(By.ID, "counter").text)}", "Save should export correct counter value"
+        actual_value = f.read().strip()
+        assert actual_value == f"Counter Value: {expected_value}", "Save should export correct counter value"
     os.remove("counter_value.txt")  # Clean up
 
     print("Tests passed!")
