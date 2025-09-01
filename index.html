@@ -42,14 +42,16 @@
     </style>
 </head>
 <body>
-<img src="logo.png" alt="MorphSky Logo" style="width: 100px;">
+    <img src="logo.png" alt="MorphSky Logo" style="width: 100px;">
     <h1>Hello, World!</h1>
     <div class="controls">
         <button onclick="decrementCounter()">Decrement</button>
         <span id="counter">0</span>
         <button onclick="incrementCounter()">Increment</button>
-    <button onclick="resetCounter()">Reset</button><button onclick="saveCounter()">Save Counter</button>
-            <button onclick="suggestRoute()">Suggest Route</button></div>
+        <button onclick="resetCounter()">Reset</button>
+        <button onclick="saveCounter()">Save Counter</button>
+        <button onclick="suggestRoute()">Suggest Route</button>
+    </div>
     <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
     <script>
@@ -77,14 +79,30 @@
             isDarkMode = !isDarkMode;
             document.body.classList.toggle('dark-mode');
             updateDisplay();
-      
-    function suggestRoute() { const routes = ["SFO->LAX", "LAX->JFK"]; document.getElementById("counter").textContent = "Route: " + routes[Math.floor(Math.random() * routes.length)]; })
+        }
+
+        function resetCounter() {
+            count = 0;
+            updateDisplay();
+        }
+
+        function saveCounter() {
+            const blob = new Blob([`Counter Value: ${count}`], { type: "text/plain" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "counter_value.txt";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function suggestRoute() {
+            const routes = ["SFO->LAX", "LAX->JFK"];
+            document.getElementById("counter").textContent = "Route: " + routes[Math.floor(Math.random() * routes.length)];
+        }
 
         // Initial display update
         updateDisplay();
     </script>
 </body>
 </html>
-
-        <script>function resetCounter() { count = 0; updateDisplay(); }</script>
-        <script>function saveCounter() { const blob = new Blob([`Counter Value: ${count}`], { type: "text/plain" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "counter_value.txt"; a.click(); URL.revokeObjectURL(url); }</script>
