@@ -42,13 +42,14 @@
     </style>
 </head>
 <body>
-<img src="morphsky-logo.png" alt="MorphSky Logo" style="width: 100px;">
+<img src="logo.png" alt="MorphSky Logo" style="width: 100px;">
     <h1>Hello, World!</h1>
     <div class="controls">
         <button onclick="decrementCounter()">Decrement</button>
         <span id="counter">0</span>
         <button onclick="incrementCounter()">Increment</button>
-    <button onclick="resetCounter()">Reset</button><button onclick="saveCounter()">Save Counter</button></div>
+    <button onclick="resetCounter()">Reset</button><button onclick="saveCounter()">Save Counter</button>
+            <button onclick="suggestRoute()">Suggest Route</button></div>
     <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
     <script>
@@ -76,7 +77,8 @@
             isDarkMode = !isDarkMode;
             document.body.classList.toggle('dark-mode');
             updateDisplay();
-        }
+      
+        function suggestRoute() { alert("Suggested Route: SFO -> LAX"); }  }
 
         // Initial display update
         updateDisplay();
