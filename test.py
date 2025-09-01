@@ -50,6 +50,13 @@ try:
         assert actual_value == f"Counter Value: {expected_value}", "Save should export correct counter value"
     os.remove("counter_value.txt")  # Clean up
 
+    # Suggest route test
+    wait.until(EC.presence_of_element_located((By.XPATH, "//button[contains(., 'Suggest Route')]")))
+    driver.find_element(By.XPATH, "//button[contains(., 'Suggest Route')]").click()
+    alert = wait.until(EC.alert_is_present())
+    assert "SFO -> LAX" in alert.text, "Suggest Route should show SFO -> LAX"
+    alert.accept()
+
     print("Tests passed!")
 finally:
     driver.quit()

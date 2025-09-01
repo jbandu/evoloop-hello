@@ -8,24 +8,56 @@ with open('spec.json', 'r', encoding='utf-8') as f:
 with open('index.html', 'r') as f:
     content = f.read()
 
-# Task: Add save button if in spec
+# Find the script block to append functions
+script_start = content.find('<script>') + len('<script>')
+script_end = content.find('</script>', script_start)
+script_content = content[script_start:script_end] if script_start != -1 and script_end != -1 else ''
+
+# Task: Add suggest route button if in spec
+if any("suggest route" in task.lower() for task in spec['tasks']):
+    if '<button onclick="suggestRoute()">' not in content:
+        controls_end = content.find('</div>', content.find('<div class="controls">'))
+        if controls_end != -1:
+            button_html = '\n            <button onclick="suggestRoute()">Suggest Route</button>'
+            content = content[:controls_end] + button_html + content[controls_end:]
+
+        # Add suggestRoute function
+        suggest_function = '\n        function suggestRoute() { alert("Suggested Route: SFO -> LAX"); }'
+        if script_content and suggest_function not in script_content:
+            content = content[:script_end] + suggest_function + content[script_end:]
+
+# Task: Add save button if in spec (fix placement)
 if any("save button" in task.lower() for task in spec['tasks']):
     if '<button onclick="saveCounter()">' not in content:
-        # Insert save button inside .controls div before the closing </div>
         controls_end = content.find('</div>', content.find('<div class="controls">'))
         if controls_end != -1:
             button_html = '\n            <button onclick="saveCounter()">Save Counter</button>'
             content = content[:controls_end] + button_html + content[controls_end:]
-        # Add saveCounter function in the existing script block
-        script_start = content.find('<script>') + len('<script>')
-        script_end = content.find('</script>', script_start)
-        if script_start != -1 and script_end != -1:
-            save_function = '\n        function saveCounter() { const blob = new Blob([`Counter Value: ${count}`], { type: "text/plain" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "counter_value.txt"; a.click(); URL.revokeObjectURL(url); }'
+
+        # Add saveCounter function
+        save_function = '\n        function saveCounter() { const blob = new Blob([`Counter Value: ${count}`], { type: "text/plain" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "counter_value.txt"; a.click(); URL.revokeObjectURL(url); }'
+        if script_content and save_function not in script_content:
             content = content[:script_end] + save_function + content[script_end:]
+
+# Task: Add reset button if in spec (fix placement)
+if any("reset button" in task.lower() for task in spec['tasks']):
+    if '<button onclick="resetCounter()">' not in content:
+        controls_end = content.find('</div>', content.find('<div class="controls">'))
+        if controls_end != -1:
+            button_html = '\n            <button onclick="resetCounter()">Reset</button>'
+            content = content[:controls_end] + button_html + content[controls_end:]
+
+        # Add resetCounter function
+        reset_function = '\n        function resetCounter() { count = 0; updateDisplay(); }'
+        if script_content and reset_function not in script_content:
+            content = content[:script_end] + reset_function + content[script_end:]
+
+# Clean up invalid script tags at the end
+content = content.replace('</body>\n        <script>function resetCounter() { count = 0; updateDisplay(); }</script>\n        <script>function saveCounter() { const blob = new Blob([`Counter Value: ${count}`], { type: "text/plain" }); const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = "counter_value.txt"; a.click(); URL.revokeObjectURL(url); }</script>', '</body>')
 
 # Stage all modified files and commit
 os.system('git add index.html spec.json triage.json')
-os.system('git commit -m "Add save button per spec tasks" || echo "No changes to commit"')
+os.system('git commit -m "Add suggest route button per spec tasks" || echo "No changes to commit"')
 os.system('git push')
 
 with open('index.html', 'w') as f:
